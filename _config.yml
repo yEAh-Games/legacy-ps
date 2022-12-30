@@ -1,10 +1,10 @@
 full_rebuild: true
-name: Gridster
-description: the material experience for jekyll
+name: Quotes / Collections / Library / yEAh Network
+description: Host of the official yEAh Games quote collection for quotes of the day, quotes of the month, quotes of the year, etc. Readable and searchable at https://quotes.yeahgames.net. Library collections (https://library-collections.yeahgames.net) are a way to browse aggregated Archives content in a separate library designed for a certain purpose. 
 destination: jekyllbuild
-url: #place url
+url: https://quotes.yeahgames.net
 baseurl: #place folder name if site is served in subfolder
-permalink: /:title/
+permalink: /quotes/:title/
 paginate: 8
 paginate_path: /page/:num/
 infinite_scroll: true #change to false if you want to use pagination
@@ -12,15 +12,15 @@ gems: [jekyll-paginate]
 tag_dir: /tag
 category_dir: /category
 author_dir: /author
-author_title_prefix: 'Posted by '
+author_title_prefix: 'Archived by '
 media_folder: /media/compressed
-author_default_avatar: /profile-pic.jpg
+author_default_avatar: https://styles.redditmedia.com/t5_6qdqib/styles/communityIcon_3dz4d1u31mc91.png?width=256&s=46b1501d4a2f96de18481cb24607d15ae2140dd4
 tumblr: "#"
 pinterest: "#"
-instagram: "#"
-twitter: "#"
+instagram: "https://instagram.com/_yEAhGames"
+twitter: "https://twitter.com/yEAhGames_"
 facebook: "#"
-youtube: "#"
+youtube: "https://youtube.com/@yeahgames"
 vimeo: "#"
 soundcloud: "#"
 
