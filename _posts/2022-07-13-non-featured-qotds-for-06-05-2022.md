@@ -5,6 +5,7 @@ date: 2022-07-13 11:45
 author: yeahgamesdevs
 comments: true
 categories: [Non-featured QOTDs, Non-featured quotes, QOTD, Quotes]
+image: https://yeaharchives.files.wordpress.com/2022/07/image-51.png?w=898
 ---
 <!-- wp:paragraph -->
 <p>Archive of the non-featured quotes of the day from Friday, May 6th, 2022. </p>
