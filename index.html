@@ -1,58 +1,71 @@
 ---
-layout: index-full
-description: Host of the official yEAh Games quote collection for quotes of the day, quotes of the month, quotes of the year, etc. Readable and searchable at https://quotes.yeahgames.net. Library collections (https://library-collections.yeahgames.net) are a way to browse aggregated Archives content in a separate library designed for a certain purpose. 
+layout: default
 ---
-{% for post in paginator.posts %}
-    {% include article_index.html %}
-{% endfor %}
 
-{% if paginator.total_pages > 1 %}
-    <div class="pagination">
-        <!-- link to first page -->
-        {% if paginator.total_pages > 3 %}
-            {% if paginator.page == 1 %}
-                <span class="btn disabled"><i class="fa fa-angle-double-left"></i></span>
-            {% else %}
-                <a class="btn" href="{{ '/' | prepend: site.baseurl | replace: '//', '/' }}"><i class="fa fa-angle-double-left"></i></a>
+<div class="home py-4 py-md-5">
+  <div class="row">
+    {% for post in paginator.posts %}   
+      <div class="col-12 col-md-6 col-lg-4">
+       <a href="{{ post.url | prepend: site.baseurl }}" class="index-anchor">
+        <div class="card rounded overflow-hidden">  
+          <div class="image">
+            {% if post.image %}
+            <img src="{{post.image | relative_url}}" alt="{{post.title}}">
             {% endif %}
-        {% endif %}
+            <div class="card-body">
+              <h2 class="panel-title">{{ post.title | truncate: 25 }}</h2>
+              <p class="p-0 my-1 mx-0"><span class="post-meta"><small>{{ post.date | date: "%b %-d, %Y" }}</small></span></p>
+               <p>{{ post.excerpt | strip_html | strip_newlines | truncate: 150 }}</p>
+            </div>
+          </div>
+        </div>
+      </a>
+      </div>
+    {% endfor %}
+  </div>
+</div> 
+    
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+        {% if paginator.total_pages > 1 %}
+        <ul class="pagination">
+          {% if paginator.previous_page %}
+            <li class="page-item">
+              <a class="page-link" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&laquo; Prev</a>
+            </li>
+          {% else %}
+            <li class="page-item disabled">
+              <span class="page-link">Previous</span>
+            </li>
+          {% endif %}
 
-        <!-- previous link -->
-        {% if paginator.previous_page %}
-            <a class="btn prev" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}"><i class="fa fa-angle-left"></i></a>
-        {% else %}
-            <span class="btn disabled"><i class="fa fa-angle-left"></i></span>
-        {% endif %}
-
-        <!-- number links -->
-        {% capture start %}
-            {{ paginator.page | minus: 3 }}
-        {% endcapture %}
-
-        {% for i in (1..paginator.total_pages) limit: 5 offset: start %}
-            {% if i == paginator.page %}
-                <span class="btn disabled">{{ i }}</span>
-            {% elsif i == 1 %}
-                <a class="btn" href="{{ site.baseurl }}/">{{ i }}</a>
+          {% for page in (1..paginator.total_pages) %}
+            {% if page == paginator.page %}
+              <li class="page-item active">
+                <span class="page-link">{{ page }}</span>
+              </li>
+            {% elsif page == 1 %}
+              <li class="page-item">
+                <a class="page-link" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">{{ page }}</a>
+              </li>
             {% else %}
-                <a class="btn" href="/page/{{ i }}">{{ i }}</a>
+              <li class="page-item">
+                <a class="page-link" href="{{ site.paginate_path | prepend: site.baseurl | replace: '//', '/' | replace: ':num', page }}">{{ page }}</a></li>
             {% endif %}
-        {% endfor %}
+          {% endfor %}
 
-        <!-- next link -->
-        {% if paginator.next_page %}
-            <a class="btn next" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}"><i class="fa fa-angle-right"></i></a>
-        {% else %}
-            <span class="btn disabled"><i class="fa fa-angle-right"></i></span>
-        {% endif %}
-
-        <!-- last page link -->
-        {% if paginator.total_pages > 3 %}
-            {% if paginator.page == paginator.total_pages %}
-                <span class="btn disabled"><i class="fa fa-angle-double-right"></i></span>
-            {% else %}
-                <a class="btn" href="{{ site.baseurl | replace: '//', '/' }}/page/{{paginator.total_pages}}"><i class="fa fa-angle-double-right"></i></a>
-            {% endif %}
+          {% if paginator.next_page %}
+            <li class="page-item">
+              <a class="page-link" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Next &raquo;</a>
+            </li>
+          {% else %}
+            <li class="page-item" disabled>
+              <span class="page-link">Next</span>
+            </li>
+          {% endif %}
+          </ul>
         {% endif %}
     </div>
-{% endif %}
+  </div>
+
+</div>
