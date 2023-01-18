@@ -2,8 +2,11 @@
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
     <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<STYLE>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+<style>
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
  *, *::after, *::before {
 	 margin: 0;
@@ -149,22 +152,58 @@
 	 justify-self: flex-end;
 }
  
-</STYLE>
+</style>
 
 </head>
 <body>
-  <!DOCTYPE html>
-  <html lang="en">
-  
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
-    <title>Sidebar menu</title>
-  </head>
   
   <body>
+
+    <script>
+
+
+      // -------- toggle sub menus --------
+      const navLinks = document.querySelectorAll(".nav__link");
+      
+      navLinks.forEach((link) => link.addEventListener("click", drop));
+      
+      function drop() {
+        const subMenu = this.nextElementSibling;
+        if (subMenu) {
+          // if sub menu exists
+          if (subMenu.style.height == "0px" || subMenu.style.height == "") {
+            subMenu.style.height = subMenu.scrollHeight + "px";
+            // open side nav
+            sideNav.style.width = "14rem";
+          } else {
+            subMenu.style.height = "0px";
+          }
+        }
+      }
+      
+      // --------- Toggle Side Nav --------
+      const menuBtn = document.querySelector("#nav-toggle");
+      const sideNav = document.querySelector("#side-nav");
+      
+      menuBtn.addEventListener("click", toggleSideNav);
+      
+      function toggleSideNav() {
+        if (sideNav.style.width == "5.6rem" || sideNav.style.width == "") {
+          sideNav.style.width = "14rem";
+        } else {
+          // close side nav
+          sideNav.style.width = "5.6rem";
+          // close all opened sub menus
+          document.querySelectorAll('.nav__drop').forEach(drop => drop.style.height = '0px');
+          
+        }
+      }
+      
+      
+      
+      
+        </script>
+        
     <div class="sidenav-container" id="side-nav">
       <nav class="nav">
         <div class="nav__brand">
@@ -270,51 +309,9 @@
     
     <!-- ===== IONICONS ===== -->
     <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
-    <!-- ===== MAIN JS ===== -->
-    <script src="main.js"></script>
   
 
-<script>
-// -------- toggle sub menus --------
-const navLinks = document.querySelectorAll(".nav__link");
 
-navLinks.forEach((link) => link.addEventListener("click", drop));
-
-function drop() {
-  const subMenu = this.nextElementSibling;
-  if (subMenu) {
-    // if sub menu exists
-    if (subMenu.style.height == "0px" || subMenu.style.height == "") {
-      subMenu.style.height = subMenu.scrollHeight + "px";
-      // open side nav
-      sideNav.style.width = "14rem";
-    } else {
-      subMenu.style.height = "0px";
-    }
-  }
-}
-
-// --------- Toggle Side Nav --------
-const menuBtn = document.querySelector("#nav-toggle");
-const sideNav = document.querySelector("#side-nav");
-
-menuBtn.addEventListener("click", toggleSideNav);
-
-function toggleSideNav() {
-  if (sideNav.style.width == "5.6rem" || sideNav.style.width == "") {
-    sideNav.style.width = "14rem";
-  } else {
-    // close side nav
-    sideNav.style.width = "5.6rem";
-    // close all opened sub menus
-    document.querySelectorAll('.nav__drop').forEach(drop => drop.style.height = '0px');
-    
-  }
-}
-
-
-  </script>
-  
   
   
   </body>
