@@ -27,7 +27,7 @@ copyright:
    link: 'https://yeahgames.net'
 
 # Build settings
-permalink: /view/:title/
+permalink: /posts/:title/
 paginate: 6
 paginate_path: /page:num/
 
