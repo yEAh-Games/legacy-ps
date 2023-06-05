@@ -75,6 +75,7 @@ function getTitle(url) {
   });
 }
 
+
 document.addEventListener('DOMContentLoaded', function () {
   if (!checkCookieExistence()) {
     redirectToLogin();
@@ -101,7 +102,7 @@ document.addEventListener('DOMContentLoaded', function () {
         iframe.style.height = '100%';
 
         iframe.addEventListener('load', function () {
-          getTitle('https://' + token + '-secure.yeahgames.net')
+          getTitle(window.location.href)
             .then(function (iframeTitle) {
               document.title = iframeTitle;
               console.log('Retrieved protected page:', iframeTitle);
