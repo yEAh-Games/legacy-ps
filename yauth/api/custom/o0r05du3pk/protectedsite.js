@@ -27,6 +27,7 @@ function checkAuthorization(username, subdomain) {
     });
 }
 
+
 function redirectToLogin(corrupted) {
   var loginUrl = 'https://accounts.yeahgames.net/login';
   if (corrupted) {
@@ -75,14 +76,6 @@ function getTitle(url) {
   });
 }
 
-function handleLinkClick(event) {
-  if (event.target.tagName === 'A' && event.target.href) {
-    event.preventDefault();
-    var newUrl = event.target.href;
-    window.history.pushState(null, '', newUrl);
-  }
-}
-
 document.addEventListener('DOMContentLoaded', function () {
   if (!checkCookieExistence()) {
     redirectToLogin();
@@ -104,23 +97,29 @@ document.addEventListener('DOMContentLoaded', function () {
       if (isAuthorized) {
         var token = '3258xukj1pdvjerq7elfh19bc83mvzsi1bhozxox9thk7mscyvyyphud';
         var iframe = document.createElement('iframe');
-        var iframeUrl = 'https://' + token + '-secure.yeahgames.net' + window.location.pathname;
-        iframe.src = iframeUrl;
+        iframe.src = 'https://' + token + '-secure.yeahgames.net' + window.location.pathname;
         iframe.style.width = '100%';
         iframe.style.height = '100%';
 
         iframe.addEventListener('load', function () {
-          getTitle(iframeUrl)
+          getTitle('https://' + token + '-secure.yeahgames.net')
             .then(function (iframeTitle) {
               document.title = iframeTitle;
               console.log('Retrieved protected page:', iframeTitle);
-
-              // Add click event listener to the iframe content
-              iframe.contentDocument.addEventListener('click', handleLinkClick);
             })
             .catch(function (error) {
               console.error('Error fetching title:', error);
             });
+        });
+
+        iframe.addEventListener('click', function (event) {
+          event.preventDefault();
+          if (event.target.tagName === 'A' && event.target.href) {
+            var path = event.target.getAttribute('href');
+            var parentUrl = window.location.protocol + '//' + window.location.host;
+            var newUrl = parentUrl + path;
+            window.top.location.href = newUrl;
+          }
         });
 
         document.body.appendChild(iframe);
