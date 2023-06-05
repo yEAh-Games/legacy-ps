@@ -27,7 +27,6 @@ function checkAuthorization(username, subdomain) {
     });
 }
 
-
 function redirectToLogin(corrupted) {
   var loginUrl = 'https://accounts.yeahgames.net/login';
   if (corrupted) {
@@ -76,6 +75,13 @@ function getTitle(url) {
   });
 }
 
+function handleLinkClick(event) {
+  if (event.target.tagName === 'A' && event.target.href) {
+    event.preventDefault();
+    var newUrl = event.target.href;
+    window.history.pushState(null, '', newUrl);
+  }
+}
 
 document.addEventListener('DOMContentLoaded', function () {
   if (!checkCookieExistence()) {
@@ -108,6 +114,9 @@ document.addEventListener('DOMContentLoaded', function () {
             .then(function (iframeTitle) {
               document.title = iframeTitle;
               console.log('Retrieved protected page:', iframeTitle);
+
+              // Add click event listener to the iframe content
+              iframe.contentDocument.addEventListener('click', handleLinkClick);
             })
             .catch(function (error) {
               console.error('Error fetching title:', error);
