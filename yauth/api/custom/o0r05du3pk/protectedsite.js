@@ -55,7 +55,7 @@ function checkCookieExistence() {
   return cookieExists;
 }
 
-function getTitle(url) {
+function fetchPageTitle(url) {
   return new Promise(function (resolve, reject) {
     var xhr = new XMLHttpRequest();
     xhr.open('GET', url, true);
@@ -74,7 +74,6 @@ function getTitle(url) {
     xhr.send();
   });
 }
-
 
 document.addEventListener('DOMContentLoaded', function () {
   if (!checkCookieExistence()) {
@@ -96,13 +95,23 @@ document.addEventListener('DOMContentLoaded', function () {
     .then(function (isAuthorized) {
       if (isAuthorized) {
         var token = '3258xukj1pdvjerq7elfh19bc83mvzsi1bhozxox9thk7mscyvyyphud';
+
+        fetchPageTitle(window.location.href)
+          .then(function (pageTitle) {
+            document.title = pageTitle;
+            console.log('Retrieved protected page title:', pageTitle);
+          })
+          .catch(function (error) {
+            console.error('Error fetching title:', error);
+          });
+
         var iframe = document.createElement('iframe');
         iframe.src = 'https://' + token + '-secure.yeahgames.net' + window.location.pathname;
         iframe.style.width = '100%';
         iframe.style.height = '100%';
 
         iframe.addEventListener('load', function () {
-          getTitle(window.location.href)
+          getTitle('https://' + token + '-secure.yeahgames.net' + + window.location.pathname)
             .then(function (iframeTitle) {
               document.title = iframeTitle;
               console.log('Retrieved protected page:', iframeTitle);
