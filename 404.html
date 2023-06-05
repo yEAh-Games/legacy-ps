@@ -41,6 +41,13 @@
       loaderOverlay.style.display = 'none';
     });
   </script>
+  <script>
+    window.addEventListener('message', function (event) {
+      if (event.data.target === 'iframe-link' && event.data.href) {
+        window.location.href = event.data.href;
+      }
+    });
+  </script>
 </body>
 
 </html>
