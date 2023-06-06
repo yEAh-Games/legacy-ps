@@ -124,7 +124,7 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.appendChild(iframe);
       } else {
         var errorIframe = document.createElement('iframe');
-        errorIframe.src = 'https://www.yeahgames.net/errors/http/401';
+        errorIframe.src = 'https://www.yeahgames.net/errors/http/403';
         errorIframe.style.width = '100%';
         errorIframe.style.height = '100%';
         document.body.appendChild(errorIframe);
