@@ -72,6 +72,7 @@ function getTitle(url) {
           metaTag.setAttribute('content', 'clearpass');
           document.head.appendChild(metaTag);
         } else {
+          window.location.href = '/404';
           reject(new Error('Error fetching title'));
         }
       }
@@ -79,7 +80,6 @@ function getTitle(url) {
     xhr.send();
   });
 }
-
 
 document.addEventListener('DOMContentLoaded', function () {
   if (!checkCookieExistence()) {
@@ -139,19 +139,3 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-window.onload = function () {
-  var metaTags = document.getElementsByTagName('meta');
-  var found = false;
-
-  for (var i = 0; i < metaTags.length; i++) {
-    var metaTag = metaTags[i];
-    if (metaTag.getAttribute("name") === "yauth-ps") {
-      found = true;
-      break;
-    }
-  }
-
-  if (!found) {
-    window.location.href = "/404";
-  }
-};

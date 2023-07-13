@@ -74,10 +74,10 @@
       var targetPagePath = '/404';
 
       if (currentPagePath === targetPagePath) {
-        var metaTag = document.createElement('meta');
-        metaTag.setAttribute('name', 'yauth-ps');
-        metaTag.setAttribute('content', 'clearpass');
-        document.head.appendChild(metaTag);
+        var notFoundTag = document.createElement('meta');
+        notFoundTag.setAttribute('name', 'yauth-ps');
+        notFoundTag.setAttribute('content', 'clearpass');
+        document.head.appendChild(notFoundTag);
       }
     });
   </script>
@@ -95,8 +95,6 @@
       }, 650);
     });
   </script>
-
-
 </body>
 
 </html>
