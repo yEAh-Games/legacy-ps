@@ -21,7 +21,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 9999;
+      z-index: 9999999;
     }
 
     .loader {
@@ -74,12 +74,25 @@
   <script src="https://accounts.yeahgames.net/system/all/sha256.js"></script>
   <script src="https://accounts.yeahgames.net/system/validation/main.js"></script>
   <script src="/yauth/api/custom/o0r05du3pk/protectedsite.js"></script>
-  <script>
+  <script defer>
     window.addEventListener('load', function () {
       var loaderOverlay = document.querySelector('.loading-overlay');
       setTimeout(function () {
         loaderOverlay.style.display = 'none';
       }, 650);
+    });
+  </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var currentPagePath = window.location.pathname;
+      var targetPagePath = '/404';
+
+      if (currentPagePath === targetPagePath) {
+        var metaTag = document.createElement('meta');
+        metaTag.setAttribute('name', 'yauth-ps');
+        metaTag.setAttribute('content', 'clearpass');
+        document.head.appendChild(metaTag);
+      }
     });
   </script>
   <script>
