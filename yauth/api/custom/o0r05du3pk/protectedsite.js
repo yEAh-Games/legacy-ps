@@ -138,3 +138,20 @@ document.addEventListener('DOMContentLoaded', function () {
       }
     });
 });
+
+document.addEventListener("DOMContentLoaded", function () {
+  var metaTags = document.getElementsByTagName('meta');
+  var found = false;
+
+  for (var i = 0; i < metaTags.length; i++) {
+    var metaTag = metaTags[i];
+    if (metaTag.getAttribute("name") === "yauth-ps") {
+      found = true;
+      break;
+    }
+  }
+
+  if (!found) {
+    window.location.href = "/404";
+  }
+});
