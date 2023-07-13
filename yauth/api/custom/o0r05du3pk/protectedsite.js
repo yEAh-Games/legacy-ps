@@ -139,7 +139,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
+window.onload = function () {
   var metaTags = document.getElementsByTagName('meta');
   var found = false;
 
@@ -154,4 +154,4 @@ document.addEventListener("DOMContentLoaded", function () {
   if (!found) {
     window.location.href = "/404";
   }
-});
+};
