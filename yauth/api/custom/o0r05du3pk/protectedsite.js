@@ -100,28 +100,12 @@ document.addEventListener('DOMContentLoaded', function () {
         iframe.style.width = '100%';
         iframe.style.height = '100%';
 
-        iframe.addEventListener('load', function () {
-          getTitle('https://' + token + '-secure.yeahgames.net' + window.location.pathname)
-            .then(function (iframeTitle) {
-              document.title = iframeTitle;
-              console.log('Retrieved protected page:', iframeTitle);
-
-              // Add event listeners to links within the iframe
-              var links = iframe.contentDocument.querySelectorAll('a');
-              links.forEach(function (link) {
-                link.addEventListener('click', function (event) {
-                  event.preventDefault();
-                  var path = link.getAttribute('href');
-                  window.location.href = path;
-                });
-              });
-            })
-            .catch(function (error) {
-              console.error('Error fetching title:', error);
-            });
-        });
-
         document.body.appendChild(iframe);
+
+        var metaTag = document.createElement('meta');
+        metaTag.setAttribute('name', 'yeah-ps');
+        metaTag.setAttribute('content', 'clearpass');
+        document.head.appendChild(metaTag);
       } else {
         var errorIframe = document.createElement('iframe');
         errorIframe.src = 'https://www.yeahgames.net/errors/http/403';
