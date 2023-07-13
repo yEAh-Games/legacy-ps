@@ -45,15 +45,6 @@
       }
     }
   </style>
-  <div class="loading-overlay">
-    <div class="loader"></div>
-  </div>
-  <script>
-    window.addEventListener('load', function () {
-      var loaderOverlay = document.querySelector('.loading-overlay');
-      loaderOverlay.style.display = 'none';
-    });
-  </script>
   <style>
     html,
     body {
@@ -77,9 +68,18 @@
 </head>
 
 <body>
+  <div class="loading-overlay">
+    <div class="loader"></div>
+  </div>
   <script src="https://accounts.yeahgames.net/system/all/sha256.js"></script>
   <script src="https://accounts.yeahgames.net/system/validation/main.js"></script>
   <script src="/yauth/api/custom/o0r05du3pk/protectedsite.js"></script>
+  <script>
+    window.addEventListener('load', function () {
+      var loaderOverlay = document.querySelector('.loading-overlay');
+      loaderOverlay.style.display = 'none';
+    });
+  </script>
 </body>
 
 </html>
