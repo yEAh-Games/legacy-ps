@@ -104,14 +104,12 @@ document.addEventListener('DOMContentLoaded', function () {
         iframe.onload = function () {
           if (iframe.contentWindow && iframe.contentWindow.document && iframe.contentWindow.document.readyState === 'complete') {
             var iframeStatus = iframe.contentWindow.document.status;
-            if (iframeStatus === 404) {
-              return;
+            if (iframeStatus === 200) {
+              var metaTag = document.createElement('meta');
+              metaTag.setAttribute('name', 'yeah-ps');
+              metaTag.setAttribute('content', 'clearpass');
+              document.head.appendChild(metaTag);
             }
-
-            var metaTag = document.createElement('meta');
-            metaTag.setAttribute('name', 'yeah-ps');
-            metaTag.setAttribute('content', 'clearpass');
-            document.head.appendChild(metaTag);
           }
         };
 
