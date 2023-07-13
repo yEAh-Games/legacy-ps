@@ -99,18 +99,26 @@ document.addEventListener('DOMContentLoaded', function () {
         iframe.src = 'https://' + token + '-secure.yeahgames.net' + window.location.pathname;
         iframe.style.width = '100%';
         iframe.style.height = '100%';
+        iframe.setAttribute('id', 'ps-content');
+
+        iframe.onload = function () {
+          if (iframe.contentDocument && iframe.contentDocument.body && iframe.contentDocument.body.offsetHeight === 0) {
+            return;
+          }
+
+          var metaTag = document.createElement('meta');
+          metaTag.setAttribute('name', 'yeah-ps');
+          metaTag.setAttribute('content', 'clearpass');
+          document.head.appendChild(metaTag);
+        };
 
         document.body.appendChild(iframe);
-
-        var metaTag = document.createElement('meta');
-        metaTag.setAttribute('name', 'yeah-ps');
-        metaTag.setAttribute('content', 'clearpass');
-        document.head.appendChild(metaTag);
       } else {
         var errorIframe = document.createElement('iframe');
         errorIframe.src = 'https://www.yeahgames.net/errors/http/403';
         errorIframe.style.width = '100%';
         errorIframe.style.height = '100%';
+        errorIframe.setAttribute('id', 'ps-forbidden')
         document.body.appendChild(errorIframe);
       }
     });
