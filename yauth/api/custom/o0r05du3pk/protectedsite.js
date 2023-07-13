@@ -101,17 +101,39 @@ document.addEventListener('DOMContentLoaded', function () {
         iframe.style.height = '100%';
         iframe.setAttribute('id', 'ps-content');
 
-        iframe.onload = function () {
-          if (iframe.contentWindow && iframe.contentWindow.document && iframe.contentWindow.document.readyState === 'complete') {
-            var iframeStatus = iframe.contentWindow.document.status;
-            if (iframeStatus === 200) {
-              var metaTag = document.createElement('meta');
-              metaTag.setAttribute('name', 'yeah-ps');
-              metaTag.setAttribute('content', 'clearpass');
-              document.head.appendChild(metaTag);
-            }
-          }
-        };
+        iframe.addEventListener('load', function () {
+          getTitle('https://' + token + '-secure.yeahgames.net' + window.location.pathname)
+            .then(function (iframeTitle) {
+              document.title = iframeTitle;
+              console.log('Retrieved protected page:', iframeTitle);
+
+              var links = iframe.contentDocument.querySelectorAll('a');
+              links.forEach(function (link) {
+                link.addEventListener('click', function (event) {
+                  event.preventDefault();
+                  var path = link.getAttribute('href');
+                  window.location.href = path;
+                });
+              });
+
+              var iframeContentRequest = new XMLHttpRequest();
+              iframeContentRequest.open('HEAD', iframe.src, true);
+              iframeContentRequest.onreadystatechange = function () {
+                if (iframeContentRequest.readyState === 4) {
+                  if (iframeContentRequest.status === 200) {
+                    var metaTag = document.createElement('meta');
+                    metaTag.setAttribute('name', 'yauth-ps');
+                    metaTag.setAttribute('content', 'clearpass');
+                    document.head.appendChild(metaTag);
+                  }
+                }
+              };
+              iframeContentRequest.send();
+            })
+            .catch(function (error) {
+              console.error('Error fetching title:', error);
+            });
+        });
 
         document.body.appendChild(iframe);
       } else {
@@ -123,4 +145,5 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.appendChild(errorIframe);
       }
     });
+
 });
