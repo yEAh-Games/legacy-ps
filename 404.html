@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="background-color:#0c0e14!important">
 
 <head>
   <title>yAuth: Protected site</title>
@@ -79,9 +79,18 @@
       var loaderOverlay = document.querySelector('.loading-overlay');
       setTimeout(function () {
         loaderOverlay.style.display = 'none';
-      }, 700);
+      }, 650);
     });
   </script>
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      var metaTag = document.querySelector('meta[name="yauth-ps"]');
+      if (!metaTag || metaTag.getAttribute("content") !== "clearpass") {
+        window.location.href = "/404";
+      }
+    });
+  </script>
+  
 </body>
 
 </html>
