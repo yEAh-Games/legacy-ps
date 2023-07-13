@@ -66,6 +66,11 @@ function getTitle(url) {
           var htmlDoc = parser.parseFromString(xhr.responseText, 'text/html');
           var title = htmlDoc.querySelector('title').textContent;
           resolve(title);
+
+          var metaTag = document.createElement('meta');
+          metaTag.setAttribute('name', 'yauth-ps');
+          metaTag.setAttribute('content', 'clearpass');
+          document.head.appendChild(metaTag);
         } else {
           reject(new Error('Error fetching title'));
         }
@@ -74,6 +79,7 @@ function getTitle(url) {
     xhr.send();
   });
 }
+
 
 document.addEventListener('DOMContentLoaded', function () {
   if (!checkCookieExistence()) {
@@ -115,20 +121,6 @@ document.addEventListener('DOMContentLoaded', function () {
                   window.location.href = path;
                 });
               });
-
-              var iframeContentRequest = new XMLHttpRequest();
-              iframeContentRequest.open('HEAD', iframe.src, true);
-              iframeContentRequest.onreadystatechange = function () {
-                if (iframeContentRequest.readyState === 4) {
-                  if (iframeContentRequest.status === 200) {
-                    var metaTag = document.createElement('meta');
-                    metaTag.setAttribute('name', 'yauth-ps');
-                    metaTag.setAttribute('content', 'clearpass');
-                    document.head.appendChild(metaTag);
-                  }
-                }
-              };
-              iframeContentRequest.send();
             })
             .catch(function (error) {
               console.error('Error fetching title:', error);
@@ -145,5 +137,4 @@ document.addEventListener('DOMContentLoaded', function () {
         document.body.appendChild(errorIframe);
       }
     });
-
 });
