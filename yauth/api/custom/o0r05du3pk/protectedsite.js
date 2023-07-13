@@ -102,14 +102,17 @@ document.addEventListener('DOMContentLoaded', function () {
         iframe.setAttribute('id', 'ps-content');
 
         iframe.onload = function () {
-          if (iframe.contentDocument && iframe.contentDocument.body && iframe.contentDocument.body.offsetHeight === 0) {
-            return;
-          }
+          if (iframe.contentWindow && iframe.contentWindow.document && iframe.contentWindow.document.readyState === 'complete') {
+            var iframeStatus = iframe.contentWindow.document.status;
+            if (iframeStatus === 404) {
+              return;
+            }
 
-          var metaTag = document.createElement('meta');
-          metaTag.setAttribute('name', 'yeah-ps');
-          metaTag.setAttribute('content', 'clearpass');
-          document.head.appendChild(metaTag);
+            var metaTag = document.createElement('meta');
+            metaTag.setAttribute('name', 'yeah-ps');
+            metaTag.setAttribute('content', 'clearpass');
+            document.head.appendChild(metaTag);
+          }
         };
 
         document.body.appendChild(iframe);
