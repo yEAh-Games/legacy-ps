@@ -68,19 +68,6 @@
 </head>
 
 <body>
-  <script>
-    document.addEventListener('DOMContentLoaded', function () {
-      var currentPagePath = window.location.pathname;
-      var targetPagePath = '/404';
-
-      if (currentPagePath === targetPagePath) {
-        var notFoundTag = document.createElement('meta');
-        notFoundTag.setAttribute('name', 'yauth-ps');
-        notFoundTag.setAttribute('content', 'clearpass');
-        document.head.appendChild(notFoundTag);
-      }
-    });
-  </script>
   <div class="loading-overlay">
     <div class="loader"></div>
   </div>
@@ -95,6 +82,19 @@
       }, 650);
     });
   </script>
+    <script defer>
+      document.addEventListener('DOMContentLoaded', function () {
+        var currentPagePath = window.location.pathname;
+        var targetPagePath = '/404';
+  
+        if (currentPagePath === targetPagePath) {
+          var notFoundTag = document.createElement('meta');
+          notFoundTag.setAttribute('name', 'yauth-ps');
+          notFoundTag.setAttribute('content', 'clearpass');
+          document.head.appendChild(notFoundTag);
+        }
+      });
+    </script>
 </body>
 
 </html>
